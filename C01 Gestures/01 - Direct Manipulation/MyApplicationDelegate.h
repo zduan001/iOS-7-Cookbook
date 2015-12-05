@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MyApplicationDelegate : Object
-
+@interface MyApplicationDelegate : NSObject  <UIApplicationDelegate>
+@property (nonatomic, strong) UIWindow *window;
 @end

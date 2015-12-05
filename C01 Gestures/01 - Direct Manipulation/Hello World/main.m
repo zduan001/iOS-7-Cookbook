@@ -13,10 +13,10 @@
 
 #pragma mark - DragView
 
-@interface DragView : UIImageView
+@interface DrawView : UIImageView
 @end
 
-@implementation DragView
+@implementation DrawView
 {
     CGPoint startLocation;
 }
@@ -75,7 +75,7 @@
 	for (NSUInteger i = 0; i < maxFlowers; i++)
 	{
 		NSString *whichFlower = [flowerArray objectAtIndex:(random() % flowerArray.count)];
-		DragView *flowerDragger = [[DragView alloc] initWithImage:[UIImage imageNamed:whichFlower]];
+		DrawView *flowerDragger = [[DrawView alloc] initWithImage:[UIImage imageNamed:whichFlower]];
 		[self.view addSubview:flowerDragger];
     }
 }
@@ -168,7 +168,8 @@ int main(int argc, char *argv[])
 {
     @autoreleasepool
     {
-        int retVal = UIApplicationMain(argc, argv, nil, @"TestBedAppDelegate");
+        int retVal = UIApplicationMain(argc, argv, nil, @"MyApplicationDelegate");
+//        int retVal = UIApplicationMain(argc, argv, nil, @"TestBedAppDelegate");
         return retVal;
     }
 }
