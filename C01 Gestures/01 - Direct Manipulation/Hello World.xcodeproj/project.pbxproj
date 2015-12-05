@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6DD11E211C13ADC800414BB3 /* MyApplicationDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD11E1E1C13ADC800414BB3 /* MyApplicationDelegate.m */; };
+		6DD11E221C13ADC800414BB3 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DD11E201C13ADC800414BB3 /* MyViewController.m */; };
 		8E335399177892A000E92480 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E335398177892A000E92480 /* Images.xcassets */; };
 		8E40C5B11773866D002489E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E40C5B01773866D002489E6 /* Foundation.framework */; };
 		8E40C5B31773866D002489E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E40C5B21773866D002489E6 /* CoreGraphics.framework */; };
@@ -19,6 +21,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6DD11E1D1C13ADC800414BB3 /* MyApplicationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyApplicationDelegate.h; sourceTree = "<group>"; };
+		6DD11E1E1C13ADC800414BB3 /* MyApplicationDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyApplicationDelegate.m; sourceTree = "<group>"; };
+		6DD11E1F1C13ADC800414BB3 /* MyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyViewController.h; sourceTree = "<group>"; };
+		6DD11E201C13ADC800414BB3 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		8E3353951778911600E92480 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utility.h; path = "Hello World/Utility.h"; sourceTree = "<group>"; };
 		8E335398177892A000E92480 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8E40C5AD1773866D002489E6 /* Hello World.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hello World.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -55,6 +61,10 @@
 		8E40C5A41773866D002489E6 = {
 			isa = PBXGroup;
 			children = (
+				6DD11E1D1C13ADC800414BB3 /* MyApplicationDelegate.h */,
+				6DD11E1E1C13ADC800414BB3 /* MyApplicationDelegate.m */,
+				6DD11E1F1C13ADC800414BB3 /* MyViewController.h */,
+				6DD11E201C13ADC800414BB3 /* MyViewController.m */,
 				8E40C5BC1773866D002489E6 /* main.m */,
 				8E3353951778911600E92480 /* Utility.h */,
 				8E40C5B71773866D002489E6 /* Supporting Files */,
@@ -160,7 +170,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DD11E221C13ADC800414BB3 /* MyViewController.m in Sources */,
 				8E40C5BD1773866D002489E6 /* main.m in Sources */,
+				6DD11E211C13ADC800414BB3 /* MyApplicationDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
