@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D3434A81C17EE4500304152 /* ToggleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D3434A71C17EE4500304152 /* ToggleButton.m */; };
 		8E335399177892A000E92480 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8E335398177892A000E92480 /* Images.xcassets */; };
 		8E40C5B11773866D002489E6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E40C5B01773866D002489E6 /* Foundation.framework */; };
 		8E40C5B31773866D002489E6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E40C5B21773866D002489E6 /* CoreGraphics.framework */; };
@@ -20,6 +21,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6D3434A61C17EE4500304152 /* ToggleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ToggleButton.h; sourceTree = "<group>"; };
+		6D3434A71C17EE4500304152 /* ToggleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ToggleButton.m; sourceTree = "<group>"; };
 		8E3353951778911600E92480 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Utility.h; path = "Hello World/Utility.h"; sourceTree = "<group>"; };
 		8E335398177892A000E92480 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8E40C5AD1773866D002489E6 /* Hello World.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Hello World.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,6 +61,8 @@
 		8E40C5A41773866D002489E6 = {
 			isa = PBXGroup;
 			children = (
+				6D3434A61C17EE4500304152 /* ToggleButton.h */,
+				6D3434A71C17EE4500304152 /* ToggleButton.m */,
 				8E40C5BC1773866D002489E6 /* main.m */,
 				8E3353951778911600E92480 /* Utility.h */,
 				9B6061961799199900FD3F2F /* PushButton.h */,
@@ -165,6 +170,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6D3434A81C17EE4500304152 /* ToggleButton.m in Sources */,
 				8E40C5BD1773866D002489E6 /* main.m in Sources */,
 				9B6061981799199900FD3F2F /* PushButton.m in Sources */,
 			);
