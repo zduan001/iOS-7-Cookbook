@@ -40,11 +40,18 @@
     
     // Remember original location
     previousLocation = self.center;
+    NSLog(@"center is %d, %d", self.center.x, self.center.y);
 }
 
 - (void)handlePan: (UIPanGestureRecognizer *) gestureRecognizer
 {
     CGPoint translation = [gestureRecognizer translationInView:self.superview];
+    
+    CGFloat x = translation.x;
+    CGFloat y = translation.y;
+    
+    NSLog(@"pan is %d, %d, and center is %d, %d", x, y, self.center.x, self.center.y);
+    
     self.center = CGPointMake(previousLocation.x + translation.x,
                               previousLocation.y + translation.y);
 }

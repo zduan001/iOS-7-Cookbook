@@ -5,15 +5,24 @@
 //  Created by David Duan on 12/5/15.
 //  Copyright © 2015 Erica Sadun. All rights reserved.
 //
-
+@import UIKit;
 #import "MyViewController.h"
+#import "UIView-Transform.h"
+
 
 @interface FlowerView : UIImageView
 @end
 
+@interface FlowerView() <UIGestureRecognizerDelegate>
+@end;
+
 @implementation FlowerView
 {
     CGPoint startLocation;
+    CGFloat tx;
+    CGFloat ty;
+    CGFloat scale;
+    CGFloat theta;
 }
 
 - (instancetype)initWithImage:(UIImage *)anImage
@@ -22,24 +31,96 @@
     if (self)
     {
         self.userInteractionEnabled = YES;
-        UILongPressGestureRecognizer *pressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self
-                                                                                                      action:@selector(pressed:)];
-        [self addGestureRecognizer:pressRecognizer];
+        self.transform = CGAffineTransformIdentity;
+        tx = 0.0f;
+        ty = 0.0f;
+        scale = 0.0f;
+        theta = 0.0f;
+        
+        UIRotationGestureRecognizer *rot =
+        [[UIRotationGestureRecognizer alloc] initWithTarget:self
+                                                     action:@selector(handleRotation:)];
+        UIPinchGestureRecognizer *pin =
+        [[UIPinchGestureRecognizer alloc] initWithTarget:self
+                                                  action:@selector(handlePinch:)];
+        UIPanGestureRecognizer *pan =
+        [[UIPanGestureRecognizer alloc] initWithTarget:self
+                                                action:@selector(handlePan:)];
+        self.gestureRecognizers = @[rot, pin, pan];
+        for (UIGestureRecognizer *recogizerin in self.gestureRecognizers) {
+            recogizerin.delegate = self;
+        }
     }
     return self;
 }
 
 - (void)touchesBegan:(NSSet*)touches withEvent:(UIEvent *)event
 {
-    // Calculate and store offset, and pop view into front if needed
-    startLocation = [[touches anyObject] locationInView:self];
+    
     [self.superview bringSubviewToFront:self];
+    
+    tx = self.transform.tx;
+    ty = self.transform.ty;
+    scale = self.scaleX;
+    theta = self.rotation;
 }
 
-- (BOOL)canBecomeFirstResponder
+- (void)touchEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    if (touch.tapCount ==2) {
+        self.transform = CGAffineTransformIdentity;
+        tx = 0.0f;
+        ty = 0.0f;
+        scale = 0.0f;
+        theta = 0.0f;
+    }
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self touchEnded:touches withEvent:event];
+}
+
+- (void)updateTransformWithOffset:(CGPoint)translation
+{
+    self.transform = CGAffineTransformMakeTranslation(translation.x + tx, translation.y + ty);
+    self.transform = CGAffineTransformRotate(self.transform, theta);
+    
+    if (scale > 0.5f) {
+        self.transform = CGAffineTransformScale(self.transform, scale, scale);
+    } else {
+        self.transform = CGAffineTransformScale(self.transform, 0.5f, 0.5f);
+    }
+}
+
+- (void)handlePan:(UIPanGestureRecognizer *)gestureRecognizer
+{
+    CGPoint translation = [gestureRecognizer translationInView:self.superview];
+    [self updateTransformWithOffset:translation];
+}
+
+- (void)handleRotation:(UIRotationGestureRecognizer *)gestureRecognizer
+{
+    theta = gestureRecognizer.rotation;
+    [self updateTransformWithOffset:CGPointZero];
+}
+
+- (void)handlePinch:(UIPinchGestureRecognizer *)gestureRecognizer
+{
+    scale = gestureRecognizer.scale;
+    [self updateTransformWithOffset:CGPointZero];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldBeRequiredToFailByGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     return YES;
 }
+
+//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+//{
+//    return YES;
+//}
 
 - (void)touchesMoved:(NSSet*)touches withEvent:(UIEvent *)event
 {
@@ -51,59 +132,6 @@
     
     // Set new location
     self.center = newcenter;
-}
-
-- (void)popSelf
-{
-    [UIView animateWithDuration:0.25f
-                     animations:^(){self.transform = CGAffineTransformMakeScale(1.5f, 1.5f);}
-                     completion:^(BOOL done){
-                         [UIView animateWithDuration:0.1f
-                                          animations:^(){self.transform = CGAffineTransformIdentity;}];}];
-}
-
-- (void)rotateSelf
-{
-    [UIView animateWithDuration:0.25f
-                     animations:^() {self.transform = CGAffineTransformMakeRotation(M_PI *.95);}
-                     completion:^(BOOL done) {[UIView animateWithDuration:0.25f
-                                                               animations:^() {self.transform = CGAffineTransformMakeRotation(M_PI * 1.5);}
-                                                               completion:^(BOOL done) {self.transform = CGAffineTransformIdentity;}];}];
-}
-
-- (void)ghostSelf
-{
-    [UIView animateWithDuration:1.25f
-                     animations:^() {self.alpha = 0.0f;}
-                     completion:^(BOOL done) {[UIView animateWithDuration:1.25f
-                                                               animations:^(){}
-                                                               completion:^(BOOL done) {[UIView animateWithDuration:1.25f
-                                                                                                         animations:^() {self.alpha = 1.0f;}];
-                                                               }];
-                     }];
-}
-
-- (void)pressed:(UILongPressGestureRecognizer *)recognizer
-{
-    if (![self becomeFirstResponder]) {
-        NSLog(@"Could not become first responder");
-        return;
-    }
-    
-    UIMenuController *menu = [UIMenuController sharedMenuController];
-    UIMenuItem *pop = [[UIMenuItem alloc] initWithTitle:@"Pop"
-                                                 action:@selector(popSelf)];
-    UIMenuItem *rotate = [[UIMenuItem alloc] initWithTitle:@"Rotate"
-                                                    action:@selector(rotateSelf)];
-    UIMenuItem *ghost = [[UIMenuItem alloc] initWithTitle:@"ghost"
-                                                   action:@selector(ghostSelf)];
-    
-    [menu setMenuItems:@[pop, rotate, ghost]];
-    
-    [menu setTargetRect:self.bounds inView:self];
-    menu.arrowDirection = UIMenuControllerArrowDown;
-    [menu update];
-    [menu setMenuVisible:YES];
 }
 
 @end

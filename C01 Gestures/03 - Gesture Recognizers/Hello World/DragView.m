@@ -35,7 +35,7 @@
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	UITouch *touch = [touches anyObject];
-	if (touch.tapCount == 3)
+	if (touch.tapCount == 2)
 	{
 		// Reset geometry upon triple-tap
 		self.transform = CGAffineTransformIdentity;
